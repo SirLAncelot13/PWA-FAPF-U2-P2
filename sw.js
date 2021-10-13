@@ -24,13 +24,14 @@ self.addEventListener('install', (event) => {
         return cache.addAll([
             '/PWA-FAPF-U2-P2/',
             '/PWA-FAPF-U2-P2/index.html',
-            "/PWA-FAPF-U2-P2/js/app.js"
+            '/PWA-FAPF-U2-P2/js/app.js',
+            '/PWA-FAPF-U2-P2/manifest.json'
         ])
     })
 
     const promInmutable = caches.open(CACHE_INMUTABLE_NAME).then(cacheInmu => {
         return cacheInmu.addAll([
-            'https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css',
+            'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css',
             'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js',
             'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js'
         ])
@@ -50,7 +51,7 @@ self.addEventListener('fetch', (event) => {
             if (resp) {
                 return resp;
             }
-            console.log("No esta en cache", event.request)
+            console.log("No esta en cache", event.request.url)
             return fetch(event.request)
                 .then(respNet => {
                     caches.open(CACHE_DYNAMIC_NAME)
